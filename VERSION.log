@@ -1,0 +1,59 @@
+*********************************************************
+***************** DICAnalyzer ***************************
+***************** NZL_TJU / 2025  / 08 /    *************
+***************** Current Version - V1.2.4 ************
+*
+*
+* V1.0 		- 250120
+*			- First version distributed
+* V1.0.1 	- 250122
+*			- New methods of DIC and EBSD import
+*			- Set disp at origin to 0 when creating new projects & import data
+*			- Adjust the opacity of EBSD plots when stacking DIC plots
+*			- // Directly export .inp file that include disp BCs and Step definitions
+*			- Edit style of grain labels
+*			- Bugs fixed
+* V1.0.2 	- 250124
+*			- Bugs fixed
+* V1.0.2.1 	- 250126
+*			- Bugs fixed
+* V1.0.3 	- 250219
+*			- Color style control, editable CLim for each variable and stage
+*			- Use up and down arrow keys to move among stages
+*			- Calculation of user defined variables based on DIC results
+*			- Bugs fixed
+* V1.0.3.1 	- 250220
+*			- Bugs fixed
+* V1.0.4 	- 250222
+*			- Line probe & reigon statistic
+*			- Curves' data export
+*			- Style control of statistic curves
+*			- Data monitor of current plotted image
+*			- Bugs fixed
+* V1.0.5 	- 250224
+*			- Bugs fixed -- independent display
+*			- Modify all lines that belong to the same measurement 
+*			  when changing statistic interval settings
+*			- Reigon statistic: use a same marker for the same stage
+*			- Reigon statistic: by grain partitions (editable factor and visualization)
+* V1.0.5.1 	- 250304
+*			- DICCalculate: EBSD based variables
+* V1.1 	    - 250314
+*			- 'Slip Analysis' - incorporated as scripts 
+*			- run '\SlipAnalysis\SlipAnalysis.m'
+* V1.2.0	- 250324
+*			- Extensions: Orientation and pole figure
+* V1.2.1	- 250516
+*			- 'Slip Analysis' - modified
+*			- Bugs fixed
+* V1.2.2	- 2505
+*			- Some documents have been included in '\Documents'
+*			  software 'AxGlyph' is required https://www.amyxun.com/
+*			- Workflow to import ABAQUS odb results is avaliable
+*			  see '\Documents\FlowChart_Aba2Mat.agx'
+*			- Bugs fixed -- Symmetric BCs are imposed on +Z surface (on -Z before),
+*							which is the interior surface inside the specimen
+* V1.2.3	- 250605
+*			- Bugs fixed -- in 'DICPreprocess_Method_AutoMatch', errors on XData and YData calculation
+* V1.2.4	- 250811
+*			- Version for the Submitted Manuscript: 'An Integrated HRDIC Approach for Slip System Identification and CRSS Determination in HCP Crystals'.
