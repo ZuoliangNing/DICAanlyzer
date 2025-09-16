@@ -44,3 +44,6 @@ To bridge this gap, it is crucial to perform a spatial registration that correct
 ### Installation
 * Clone the repository to your local machine
 * Direct to '\DICAnalyzer' and run 'DICAnalyzer.mlapp'.
+
+## Contact us
+* For questions, bug reports, or support, please contact the author at ningzuoliang2019@outlook.com.
