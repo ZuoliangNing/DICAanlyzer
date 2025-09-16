@@ -1,0 +1,14 @@
+function [ theta, r ] = getProjection( x, y, z )
+% Stereographic projection
+%
+%   x, y, z - (N,1) double
+%
+% Vector
+
+ind = z < 0;
+x(ind) = -x(ind); y(ind) = -y(ind); z(ind) = -z(ind);
+
+[ theta, rho ] = cart2pol( x, y );          % theta -> ( -pi ~ pi )
+theta( theta<0 ) = theta( theta<0 ) + 2*pi; % theta -> ( 0 ~ 2pi )
+
+r = rho./ ( 1 + z );

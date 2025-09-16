@@ -1,0 +1,41 @@
+function ThetaRange = getIPFCData( x, y, z, PhaseName )
+%
+%   PhaseName   - (N,1) cell
+%   x, y, z     - (N,1) double
+%
+%   Vector [x,y,z] is unit vectors in CRYSTAL coord
+%       translated from a direction in SAMPLE coord
+%
+%   'vecnorm([x,y,z]) == 1'
+
+
+FCC_PhaseNames = { 'TitaniumHydride' };
+HCP_PhaseNames = { 'Titanium(Alpha)' };
+
+% FCC
+FCC_ind = strcmp( PhaseName, FCC_PhaseNames );
+
+X = x(FCC_ind); Y = y(FCC_ind); Z = z(FCC_ind);
+
+% --- adjust vector based on symmetry
+%           should be ( X, Y, Z >= 0 ) && ( X >= Y ) && ( Z >= X )
+
+X = abs(X); Y = abs(Y); Z = abs(Z);  % ( X, Y, Z > 0 )
+
+ind = X < Y; t = X(ind); X(ind) = Y(ind); Y(ind) = t; % ( X >= Y )
+
+ind = Z < X; t = Z(ind); Z(ind) = X(ind); X(ind) = t; % ( Z >= X )
+
+% --- stereographic projection
+[ theta, r ] = getProjection( X, Y, Z );
+
+% --- get color
+rMax = max( r ) * 0.8;
+
+c(:,1) = 1 - ( r / rMax ).^ 0.7 ;
+c(:,3) = theta / ThetaRange;
+c(:,2) = 1 - c(:,3);
+c(:,2:3) = c(:,2:3).* r + 0.1;
+c(c > 1) = 1;
+temp = max( c, [], 2 );
+c = c./ temp;
