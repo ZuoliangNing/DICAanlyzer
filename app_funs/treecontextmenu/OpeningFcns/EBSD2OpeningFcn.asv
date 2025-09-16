@@ -1,0 +1,17 @@
+function EBSD2OpeningFcn( contextmenu, ~, app )
+
+if isscalar( app.Tree.SelectedNodes ) || ...
+        isempty( app.Tree.SelectedNodes )
+
+    setSingleContextmenuSerial( contextmenu, app )
+
+    ProjectIndex = getProjectIndex( contextmenu.UserData.Serial, app );
+    obj = app.Projects( ProjectIndex );
+
+    if obj.Flag
+
+else
+
+    arrayfun( @(ui) set( ui, 'Enable', 'off' ), contextmenu.Children )
+
+end

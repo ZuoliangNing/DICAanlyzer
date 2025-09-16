@@ -1,0 +1,1 @@
+function EBSDDataOpeningFcn(contextmenu,~,app)

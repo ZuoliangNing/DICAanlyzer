@@ -1,0 +1,1 @@
+function EBSDDataDeleteMenuSelectedFcn(menu,~,app)
