@@ -1,0 +1,49 @@
+function setNodesText( app, obj )
+
+DisplayNames = app.TreeNodeTypes( app.Default.LanguageSelection );
+
+arrayfun( ...
+    @(node) set( node, 'Text', DisplayNames.(node.UserData.NodeType) ), ...
+    obj.TreeNodes.Main.Children )
+
+if ~isempty( obj.TreeNodes.DIC.Children )
+    
+    DefaultDICVariables = app.ConstantValues.DICVariables;
+    DefaultDICVariableNames = app.ConstantValues.DICVariableNames ...
+        ( app.Default.LanguageSelection );
+    for i = 1:length( DefaultDICVariables )
+        VariableName = DefaultDICVariables{i};
+        obj.TreeNodes.DICData.( VariableName ).Text = ...
+            DefaultDICVariableNames.( VariableName );
+    end
+    % arrayfun( ...
+    %     @(node) set( node, ...
+    %     'Text', DefaultDICVariableNames.(node.UserData.VariableName) ), ...
+    %     obj.TreeNodes.DIC.Children(1:5) )
+
+    UserDICVariables = app.DICPreprocessMethods. ...
+        ( obj.DIC.PreprocessMethod ).VariableNames;
+    ClaculatedDICVariables = setdiff( fieldnames( obj.DIC.Data ), ...
+        [ app.ConstantValues.DICVariables, UserDICVariables ] );
+    for i = 1:length( ClaculatedDICVariables )
+        VariableName = ClaculatedDICVariables{i};
+        obj.TreeNodes.DICData.(VariableName).Text = ...
+            app.DICCalculateMethods.( VariableName ). ...
+            Name{ app.Default.LanguageSelection };
+    end
+
+end
+
+if ~isempty( obj.TreeNodes.EBSD.Children )
+
+    DefaultEBSDVariableNames = app.ConstantValues.EBSDVariableNames ...
+        ( app.Default.LanguageSelection );
+    
+    arrayfun( @(nod) arrayfun( ...
+        @(node) set( node, ...
+        'Text', DefaultEBSDVariableNames.(node.UserData.VariableName) ), ...
+        nod.Children ), obj.TreeNodes.EBSD2 )
+
+
+
+end

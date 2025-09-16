@@ -1,0 +1,6 @@
+function ind = getEBSDIndex( EBSDSerial, obj )
+
+ind = arrayfun( @(n) ...
+    n.NodeData.EBSDSerial == EBSDSerial, ...
+    obj.TreeNodes.EBSD2 );
+ind = find( ind );

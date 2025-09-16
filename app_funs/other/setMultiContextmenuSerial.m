@@ -1,0 +1,9 @@
+function setMultiContextmenuSerial( contextmenu, app )
+
+ind = arrayfun( @(node) ...
+    strcmp( node.UserData.NodeType, 'Main' ), ...
+    app.Tree.SelectedNodes );
+RootNodes = app.Tree.SelectedNodes(ind);
+
+contextmenu.UserData.Serial = arrayfun( @(node) ...
+    node.NodeData.Serial, RootNodes );
