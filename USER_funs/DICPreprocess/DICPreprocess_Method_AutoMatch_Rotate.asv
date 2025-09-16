@@ -1,0 +1,35 @@
+function DIC = DICPreprocess_Method_AutoMatch_Rotate( DIC, dlg )
+%
+% size and stage number of each data should be the same
+%
+% Parameters including:
+%   Rotation ----- Number of counterclockwise rotations of 90 degrees
+
+DIC = DICPreprocess_Method_AutoMatch( DIC, dlg );
+
+Rotation = DIC.PreprocessPars.Rotation;
+
+FieldNames = fieldnames( DIC.Data );
+
+switch Rotation
+    case 1
+        fun = @(val) flip( val', 1 );
+
+
+end
+
+if Rotation == 1 || Rotation == 3
+    
+    DIC.XData
+end
+
+for i = 1 : DIC.StageNumber
+    for j = 1:length( FieldNames )
+
+        name = FieldNames{j};
+
+        DIC.Data(i).( name ) = fun( DIC.Data(i).( name ) );
+
+    end
+
+end

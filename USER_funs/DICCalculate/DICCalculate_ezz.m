@@ -1,0 +1,25 @@
+function DIC = DICCalculate_ezz( DIC, dlg )
+
+
+dlg.Message = 'Calculating ''Normal Strain Z''...';
+
+% pixelsize = [ mean( diff( DIC.XData ) ), mean( diff( DIC.YData ) ) ];
+% N = DIC.DataSize(1:2);
+for n = 1:DIC.StageNumber
+
+    % u = restoreData( DIC.Data(n).u, DIC.DataValueRange.u );
+    % v = restoreData( DIC.Data(n).v, DIC.DataValueRange.v );
+    % [ Hxx, Hxy ] = gradient( u, pixelsize(1), pixelsize(2) );
+    % [ Hyx, Hyy ] = gradient( v, pixelsize(1), pixelsize(2) );
+    % 
+    % Fxx = Hxx(:) + 1;   Fxy = Hxy(:);
+    % Fyx = Hyx(:);       Fyy = Hyy(:) + 1;
+    % Fzz = 1./ ( Fxx(:).* Fyy(:) - Fxy(:).* Fyx(:) );
+
+    exx = restoreData( DIC.Data(n).exx, DIC.DataValueRange.exx );
+    eyy = restoreData( DIC.Data(n).eyy, DIC.DataValueRange.eyy );
+
+    % DIC.Data(n).ezz = reshape( Fzz, N ) - 1;
+    DIC.Data(n).ezz = - exx - eyy;
+
+end
