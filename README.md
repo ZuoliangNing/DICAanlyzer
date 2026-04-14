@@ -1,49 +1,111 @@
 # DICAanlyzer
-This MATLAB APP seamlessly fuses HRDIC and EBSD data. It provides an integrated suite for precise mapping, grain analysis, and visualization to directly correlate material microstructure with local mechanical behavior, simplifying complex post-processing tasks.
 
-## Abstract
-DICAanlyzer is a MATLAB APP designed to address the challenges of integrating and analyzing data from High-Resolution Digital Image Correlation (HRDIC) and Electron Backscatter Diffraction (EBSD). It provides a comprehensive suite of tools for data fusion, post-processing, quantitative analysis, and visualization, enabling researchers in materials science and mechanics to efficiently correlate microstructural features with local mechanical responses.
+DICAanlyzer is a MATLAB App for correlative analysis of **HRDIC** (High-Resolution Digital Image Correlation) and **EBSD** (Electron Backscatter Diffraction) data. It is designed to help users build a pixel-level link between local deformation fields and crystallographic information, so that strain localization, grain-scale behavior, and structure-property relations can be studied in a single workflow.
 
-## Background and Motivation
-In experimental mechanics, HRDIC and EBSD are powerful techniques for characterizing local strain fields and crystallographic orientations, respectively. However, these characterizations are often performed using different equipment, at different times, and with varying resolutions. This leads to significant challenges in establishing a direct, pixel-to-pixel correspondence between the datasets. For instance, EBSD data acquisition can introduce distortions due to high beam currents, sample charging, or minute sample slippage when tilted at 70°.
+## What the software does
 
-To bridge this gap, it is crucial to perform a spatial registration that correctly maps crystallographic information (orientation, image quality, confidence index) from EBSD onto every pixel of the HRDIC data, which contains displacement and strain fields. Furthermore, the post-processing of this vast amount of fused data—especially when analyzing results partitioned by grains, phases, or grain boundaries—is often laborious and complex. This app was developed to provide an efficient, user-friendly, and feature-rich platform to streamline this entire workflow.
+The App provides an integrated workflow for:
 
-## Key Features
-### Data Processing & Reconstruction:
-* Reconstructs grains from raw EBSD data into a polygon-based data structure.
-  Using the project [EBSDPolygonizer] (https://github.com/samjliu/EBSDPolygonizer)
-* Performs data cleaning, noise reduction, grain identification, and segmentation of grain boundary vs. grain interior regions.
-### Correlative Mapping:
-* Implements a homologous points matching-based transformation to accurately map EBSD data onto the HRDIC coordinate system.
-### Advanced Calculations:
-* Computes a variety of secondary physical quantities based on HRDIC, EBSD, or the fused dataset.
-* Provides a unified interface for users to define and calculate new custom quantities.
-### Quantitative Analysis:
-* Performs line-scan measurements and regional statistical analysis on any variable.
-* Automatically partitions statistics by deformation stage, grain boundary/interior, and phase.
-* Allows for dynamic modification of visualization and statistical parameters.
-### Modeling & Export:
-* Exports quasi-3D Crystal Plasticity Finite Element (CPFE) models from the fused data.
-* Offers customization of model thickness, mesh size, analysis step parameters, and subroutine variables.
-* Optionally applies HRDIC-measured displacements as boundary conditions to the model.
-### Interactive Visualization:
-* Customizable display of grain groups (user-defined or by phase).
-* Toggles for displaying grain boundary vs. grain interior regions.
-* Highlights neighbors of a selected grain.
-* Customizable plotting of grain boundaries and IDs.
-* Flexible colormaps and value ranges for different variables.
-### Project Management & Extensibility:
-* Saves and loads analysis sessions in a custom project file format.
-* Exports statistical results and processed data fields.
-* Features a modular design with unified interfaces for extending data import formats, secondary calculation methods, and new GUI-based analysis modules (e.g., pole figure analysis).
+- importing HRDIC and EBSD data,
+- reconstructing grains from EBSD maps,
+- registering EBSD onto the HRDIC coordinate system using homologous points,
+- calculating derived variables from the fused dataset,
+- performing line measurements and regional statistics,
+- exporting quasi-3D CPFE input models,
+- extending the workflow with user-defined importers, calculations, and GUI modules.
 
-## System Requirements & Installation
-### Requirements
-* MATLAB R2025a or newer.
-### Installation
-* Clone the repository to your local machine
-* Direct to '\DICAnalyzer' and run 'DICAnalyzer.mlapp'.
+## Main capabilities
 
-## Contact us
-### For questions, bug reports, or support, please contact the author at ningzuoliang2019@outlook.com.
+### 1) Grain reconstruction and correlative mapping
+- Grain reconstruction from raw EBSD data using a polygon-based representation.
+- Grain cleaning, boundary detection, and grain-boundary / grain-interior partitioning.
+- Homologous-point-based spatial mapping from EBSD to the HRDIC grid.
+
+### 2) Derived-field calculation
+- Built-in post-processing of common HRDIC quantities such as effective shear, generalized in-plane strain, rotation, and other custom variables.
+- Access to both DIC-only and fused HRDIC-EBSD calculations through a unified interface.
+
+### 3) Quantitative analysis
+- Line-profile measurements on any mapped variable.
+- Regional statistics inside user-selected rectangular windows.
+- Automatic partitioning by deformation stage, phase, and grain-boundary / grain-interior region.
+
+### 4) CPFE export
+- Export of quasi-3D CPFE models directly from the fused dataset.
+- Optional use of measured HRDIC displacement fields as boundary conditions.
+- Customization of thickness, mesh density, step definitions, and export parameters.
+
+### 5) Extensibility
+- Unified interfaces for adding:
+  - new HRDIC import formats,
+  - new EBSD preprocessing methods,
+  - new calculated variables,
+  - new App extensions.
+
+## New in this public version: `SlipAnalysisLite`
+
+A new folder, **`SlipAnalysisLite`**, is included as a lightweight public release of the slip-identification workflow used on top of the DICAnalyzer data structure.
+
+This module is meant to be easy to read and easy to reuse. It provides the essential functions needed to:
+
+- extract fused data from a DICAnalyzer project object,
+- define HCP / FCC slip systems,
+- run grain-wise weighted sparse slip identification,
+- summarize activity by system and family,
+- generate quick inspection plots.
+
+To keep the public release clean and maintainable, highly customized internal scripts, manuscript-specific figure pipelines, and detailed CRSS-fitting utilities are intentionally **not** included.
+
+## Repository structure
+
+- `DICAnalyzer.mlapp` – main App entry point.
+- `@DICInstance`, `@DICProcessor` – project and preprocessing classes.
+- `USER_funs` – user-extensible import, calculation, and GUI modules.
+- `cal_funs` – shared utility functions.
+- `SlipAnalysisLite` – lightweight public slip-analysis module.
+- `Documents` – supporting notes and workflow documents.
+
+## Requirements
+
+- MATLAB with App Designer support.
+- A recent MATLAB release with `coneprog` support is recommended if `SlipAnalysisLite` is used.
+- [MTEX](https://mtex-toolbox.github.io/) is required for crystallographic operations.
+- Image Processing Toolbox is recommended for displacement filtering.
+
+## Installation
+
+1. Clone or download this repository.
+2. Add the repository (and MTEX, if needed) to the MATLAB path.
+3. Open and run `DICAnalyzer.mlapp`.
+4. For scripted slip analysis, use the functions in `SlipAnalysisLite`.
+
+## Quick scripted example for slip analysis
+
+```matlab
+options = struct;
+options.HcpFamilies = {'Basal','Prismatic','PyramidalCA1'};
+options.HcpFamilyWeights = [1.3, 1.0, 2.5];
+options.IncludeRotation = true;
+result = sa_run_slip_analysis(obj, options);
+sa_plot_family_maps(result, 'HCP', 1);
+```
+
+See `SlipAnalysisLite/example_basic_workflow.m` for a commented template.
+
+## Acknowledgement of the SSLIP framework
+
+The slip-identification workflow in this repository is developed on top of the SSLIP framework originally proposed by Vermeij et al. for point-by-point identification of slip-system activity fields from DIC displacement-gradient data.
+
+Parts of the public MATLAB implementation in `SlipAnalysisLite` were developed with reference to the open-source SSLIP code released by the original authors. The present repository does not reproduce the full upstream project; instead, it provides a simplified and reorganized implementation adapted to the DICAnalyzer data structure and to the methodology developed in our work.
+
+Our study extends the original SSLIP framework toward HCP materials with multiple slip families and introduces the weighted formulation used in our manuscript for improved slip identification and subsequent CRSS-oriented analysis.
+
+If you use this repository, please cite both:
+1. the original SSLIP paper by Vermeij et al.; and
+2. our paper / repository corresponding to the present implementation.
+
+## Contact
+
+For questions, bug reports, or collaboration inquiries, please contact:
+
+- Zuoliang Ning – ningzuoliang2019@outlook.com
