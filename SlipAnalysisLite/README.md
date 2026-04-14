@@ -66,5 +66,6 @@ See `example_basic_workflow.m` for a more complete template.
 
 If you use this module in academic work, please cite the relevant DICAnalyzer publication / repository and the original SSLIP paper if the sparse-identification workflow is relevant to your implementation.
 
+Parts of this public implementation were developed with reference to the open-source SSLIP MATLAB code by Vermeij et al. The upstream SSLIP repository is distributed under the MIT License.
 
 A grain-level waitbar is enabled by default in `sa_identify_slip_activity`. Set `options.ShowWaitbar = false` if you prefer to run silently.
