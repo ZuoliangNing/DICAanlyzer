@@ -57,3 +57,7 @@
 *			- Bugs fixed -- in 'DICPreprocess_Method_AutoMatch', errors on XData and YData calculation
 * V1.2.4	- 250811
 *			- Version for the Submitted Manuscript: 'An Integrated HRDIC Approach for Slip System Identification and CRSS Determination in HCP Crystals'.
+
+* V1.2.5	- 260413
+*			- Public GitHub update: add lightweight SlipAnalysisLite module
+*			- README rewritten and expanded for installation and usage
