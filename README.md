@@ -72,6 +72,10 @@ To keep the public release clean and maintainable, highly customized internal sc
 - [MTEX](https://mtex-toolbox.github.io/) is required for crystallographic operations.
 - Image Processing Toolbox is recommended for displacement filtering.
 
+## Example dataset
+An example ROI dataset extracted from the Ti-HT (Ti-2Al-2.5Zr at 300°C) case discussed in the manuscript has been deposited on Zenodo. This example dataset is intended to demonstrate the basic workflow of the present repository, including HRDIC–EBSD data handling and slip-analysis procedures. The Zenodo record can be cited and accessed as the public companion dataset for this repository.
+https://zenodo.org/records/19563064
+
 ## Installation
 
 1. Clone or download this repository.
